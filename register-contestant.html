@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register Nominee</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jquery CDN -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Add Local jquery -->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper blue dark">
+                <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="sass.html">Sass</a></li>
+                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="collapsible.html">JavaScript</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+        </script>
+        <!-- Page Content goes here -->
+        <div class="row">
+            <form class="col s12" method="POST" action="register-contestant.php">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <a class="">Registration Number</a>
+                        <input placeholder="eg P15/12345/2016" id="reg_no" type="text" class="validate" name="reg_no">
+                    </div>
+                    <div class="input-field col s6">
+                        <a class="">Name</a>
+                        <input id="name" name="name" type="text" placeholder="Jack Sparrow" class="validate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <a class="">Course code</a>
+                        <input id="course_code" name="course_code" placeholder="eg. CSC123" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s6">
+                        <a class="">Course title</a>
+                        <input id="course_title" type="text" name="course_title" placeholder="eg BSc.Computer Science" class="validate">
+                    </div>
+                    <div class="input-field col s2">
+                        <a class="">Year</a>
+                        <select name="course_year">
+                            <option value="" disabled selected>Select year</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
+                            <option value="3">Third</option>
+                            <option value="4">Fourth</option>
+                            <option value="5">Fifth</option>
+                            <option value="6">Sixth</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <a class="">Email</a>
+                        <input id="email" type="email" name="email" class="validate" placeholder="john@students.uonbi.ac.ke">
+                        <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
