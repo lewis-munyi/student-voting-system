@@ -11,6 +11,7 @@ $db_password ="root";
 
 // Create connection
 $connection = mysqli_connect($db_host, $db_user ,$db_password, $db_name);
+
 // Check connection
 if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
@@ -31,4 +32,4 @@ if ($value = mysqli_query($connection, $myquery)) {
 
 // Close connection
 mysqli_close($connection);
- ?>
+?>
