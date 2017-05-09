@@ -1,14 +1,6 @@
 <?php
 // Get data from form
-$reg_no = $_POST['reg_no'];
-$fname = $_POST['fname'];
-$sname = $_POST['sname'];
-$reg_no = $_POST['reg_no'];
 $course_title = $_POST['course_title'];
-$course_year = $_POST['course_year'];
-$email = $_POST['email'];
-
-
 
 // Database data
 $db_host = "localhost";
@@ -24,11 +16,11 @@ if (!$connection) {
 }
 
 // Sql Query
-$sql = "INSERT INTO contestants(contestantRegistrationNumber, first_name, second_name, contestantEmail, contestantCourse, academic_year,  contestantPost)
-VALUES ('$reg_no','$fname', '$sname', '$email', '$course_title', '$course_year', '0')";
+$sql = "INSERT INTO courses(course_title) VALUES ('$course_title')";
 
 if (mysqli_query($connection, $sql)) {
     echo "New record created successfully";
+    header("Location: http://localhost/student-voting-system/register.html");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($connection);
 }

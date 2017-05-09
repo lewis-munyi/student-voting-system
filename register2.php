@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
 
 <head>
-    <title>Register student</title>
+    <title>Courses</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -20,112 +19,106 @@
 </head>
 
 <body>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper blue dark">
-                <a href="#" class="brand-logo">Logo</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">JavaScript</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+<?php
+	if (isset($_GET['btnSubmit'])) {
+	    $course_title = $_GET['course_title'];
+	    // Database data
+		$db_host = "localhost";
+		$db_name = "votingSystem";
+		$db_user = "root";
+		$db_password ="root";	
+
+		// Create connection
+		$connection = mysqli_connect($db_host, $db_user ,$db_password, $db_name);
+		// Check connection
+		if (!$connection) {
+		    die("Connection failed: " . mysqli_connect_error());
+		}
+
+		// Sql Query
+		$sql = "INSERT INTO courses(course_title) VALUES ('$course_title')";
+
+		if (mysqli_query($connection, $sql)) {
+		    echo $course_title." created successfully";
+		} 
+		else {
+		    echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+		}
+	} 
+	?>
     <div class="container">
         <script type="text/javascript">
         $(document).ready(function() {
             $('select').material_select();
         });
         </script>
-        <!-- Page Content goes here -->
-        <div class="row">
-            <form class="col s12" method="POST" action="register-contestant.php">
+	
+            <form class="col s12" method="GET" action="register2.php">
                 <div class="row">
                     <div class="input-field col s6">
-                        <a class="">First name</a>
-                        <input id="fname" type="text" name="fname" class="validate" placeholder="Jack">
-                    </div>
-                    <div class="input-field col s6">
-                        <a class="">Second Name</a>
-                        <input id="sname" type="text" name="sname" class="validate" placeholder="Sparrow">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s4">
-                        <a class="">Registration Number</a>
-                        <input placeholder="eg P15/12345/2016" id="reg_no" type="text" class="validate" name="reg_no">
-                    </div>
-                    <!-- <div class="input-field col s6">
-                        <a class="">Course title</a>
-                        <input id="title" type="text" name="course_title" placeholder="eg BSc.Computer Science" class="validate">
-                    </div>
-                     -->
-                    <div class="input-field col s6">
-                        <a class="">Course title</a>
-                        <select name = "course_title">
+                        <a class="" active>Course title</a>
+                        <select name="course_title">
                             <optgroup label="Select course">
-                                <option value="1">Agriculture,education And Extension</option>
-                                <option value="2">Agribusiness Management</option>
-                                <option value="3">Food Science, Nutrition & Dietetics</option>
-                                <option value="4">Climate Change & Development</option>
-                                <option value="5">Agribusiness Management</option>
-                                <option value="6">Agricultural Economics</option>
-                                <option value="7">Agricultural Education And Extension</option>
-                                <option value="8">Agricultureanimal Science Major</option>
-                                <option value="9">Fisheries And Aquaculture Management</option>
-                                <option value="10">Wildlife Management And Conservation</option>
-                                <option value="11">Food Science And Technology</option>
-                                <option value="12">Food Nutrition And Dietetics</option>
-                                <option value="13">Agriculture</option>
-                                <option value="14">Range Management</option>
-                                <option value="15">Management Of Agroecosystems & Environment</option>
-                                <option value="16">Horticulture</option>
-                                <option value="17">Bio-medical Technology</option>
-                                <option value="18">Wildlife Management</option>
-                                <option value="19">Veterinary Medicine</option>
-                                <option value="20">Wildlife Management And Conservation</option>
-                                <option value="21">Environmental Chemistry</option>
-                                <option value="22">Analytical Chemistry</option>
-                                <option value="23">Industrial Chemistry</option>
-                                <option value="24">Chemistry</option>
-                                <option value="25">Petroleum Geoscience</option>
-                                <option value="26">Actuarial Science</option>
-                                <option value="27">Mathematics</option>
-                                <option value="28">Statistics</option>
-                                <option value="29">Meteorology</option>
-                                <option value="30">Atmospheric Science</option>
-                                <option value="31">Microprocessor Technology & Instrumentation</option>
-                                <option value="32">In Astronomy And Astrophysics</option>
-                                <option value="33">Physics</option>
-                                <option value="34">Bed Science Physics</option>
-                                <option value="35">Biology</option>
-                                <option value="36">Microbiology And Biotechnology</option>
-                                <option value="37">Environmental Conservation And Natural Resource Management</option>
-                                <option value="38">Computer Science</option>
-                                <option value="39">Industrial Chemistry</option>
-                                <option value="40">Distance Learning</option>
-                                <option value="41">Geology Distance Learning</option>
-                                <option value="42">Education Science</option>
-                                <option value="43">Analytical Chemistry</option>
-                                <option value="44">Chemistry</option>
-                                <option value="45">Food Science & Technology</option>
-                                <option value="46">Design</option>
-                                <option value="47">Civil Engineering</option>
-                                <option value="48">Environmental And Biosystems Engineering</option>
-                                <option value="49">Electrical And Electronic Engineering</option>
-                                <option value="50">Surveying</option>
-                                <option value="51">Electrical Engineering</option>
-                                <option value="52">Geospatial Engineering</option>
-                                <option value="53">Mechanical Engineering</option>
-                                <option value="54">Real Estate</option>
-                                <option value="55">Construction Management</option>
-                                <option value="56">Quantity Surveying</option>
-                                <option value="57">Urban & Regional Planning</option>
-                                <option value="58">Commerce By Distance</option>
-                                <option value="59">Artsdistance</option>
-                                <option value="60">Education Arts, Distance</option>
-                                <option value="61">Education Arts (History And Geography)</option>
+                                <option value="Agriculture, Education and Extension">Agriculture, Education and Extension</option>
+                                <option value="Agribusiness Management">Agribusiness Management</option>
+                                <option value="Food Science, Nutrition & Dietetics">Food Science, Nutrition & Dietetics</option>
+                                <option value="Climate Change & Development">Climate Change & Development</option>
+                                <option value="Agricultural Economics">Agricultural Economics</option>
+                                <option value="Agricultural Education And Extension">Agricultural Education And Extension</option>
+                                <option value="Agriculture animal Science Major">Agriculture animal Science Major</option>
+                                <option value="Fisheries And Aquaculture Management">Fisheries And Aquaculture Management</option>
+                                <option value="Wildlife Management And Conservation">Wildlife Management And Conservation</option>
+                                <option value="Food Science And Technology">Food Science And Technology</option>
+                                <option value="Food Nutrition And Dietetics">Food Nutrition And Dietetics</option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Range Management">Range Management</option>
+                                <option value="Management Of Agroecosystems & Environment">Management Of Agroecosystems & Environment</option>
+                                <option value="Horticulture">Horticulture</option>
+                                <option value="Bio-medical Technology">Bio-medical Technology</option>
+                                <option value="Wildlife Management">Wildlife Management</option>
+                                <option value="Veterinary Medicine">Veterinary Medicine</option>
+                                <option value="Wildlife Management And Conservation">Wildlife Management And Conservation</option>
+                                <option value="Environmental Chemistry">Environmental Chemistry</option>
+                                <option value="Analytical Chemistry">Analytical Chemistry</option>
+                                <option value="Industrial Chemistry">Industrial Chemistry</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Petroleum Geoscience">Petroleum Geoscience</option>
+                                <option value="Actuarial Science">Actuarial Science</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Statistics">Statistics</option>
+                                <option value="Meteorology">Meteorology</option>
+                                <option value="Atmospheric Science">Atmospheric Science</option>
+                                <option value="Microprocessor Technology & Instrumentation">Microprocessor Technology & Instrumentation</option>
+                                <option value="In Astronomy And Astrophysics">In Astronomy And Astrophysics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Bed Science Physics">Bed Science Physics</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Microbiology And Biotechnology">Microbiology And Biotechnology</option>
+                                <option value="Environmental Conservation And Natural Resource Management">Environmental Conservation And Natural Resource Management</option>
+                                <option value="Computer Science</option>">Computer Science</option>
+                                <option value="Industrial Chemistry">Industrial Chemistry</option>
+                                <option value="Distance Learning">Distance Learning</option>
+                                <option value="Geology Distance Learning">Geology Distance Learning</option>
+                                <option value="Education Science">Education Science</option>
+                                <option value="Analytical Chemistry">Analytical Chemistry</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Food Science & Technology">Food Science & Technology</option>
+                                <option value="Design">Design</option>
+                                <option value="Civil Engineering">Civil Engineering</option>
+                                <option value="Environmental And Biosystems Engineering">Environmental And Biosystems Engineering</option>
+                                <option value="Electrical And Electronic Engineering">Electrical And Electronic Engineering</option>
+                                <option value="Surveying">Surveying</option>
+                                <option value="Electrical Engineering">Electrical Engineering</option>
+                                <option value="Geospatial Engineering">Geospatial Engineering</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Real Estate">Real Estate</option>
+                                <option value="Construction Management">Construction Management</option>
+                                <option value="Quantity Surveying">Quantity Surveying</option>
+                                <option value="Urban & Regional Planning">Urban & Regional Planning</option>
+                                <option value="Commerce By Distance">Commerce By Distance</option>
+                                <option value="Artsdistance">Artsdistance</option>
+                                <option value="Education Arts, Distance">Education Arts, Distance</option>
+                                <option value="Education Arts (History And Geography)">Education Arts (History And Geography)</option>
                                 <option value="62">Education Arts (History And Cre)</option>
                                 <option value="63">Education Arts (Geography And Mathematics)</option>
                                 <option value="64">Education Arts (Double Mathematics)</option>
@@ -237,29 +230,16 @@
                                 <option value="170">Project Planning And Management</option>
                             </optgroup>
                         </select>
-                    </div>
-                    <div class="input-field col s2">
-                        <a class="">Year</a>
-                        <select name="course_year">
-                            <option value="" disabled selected>Select year</option>
-                            <option value="1">First</option>
-                            <option value="2">Second</option>
-                            <option value="3">Third</option>
-                            <option value="4">Fourth</option>
-                            <option value="5">Fifth</option>
-                            <option value="6">Sixth</option>
-                        </select>
+                        <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <a class="">Email</a>
-                        <input id="email" type="email" name="email" class="validate" placeholder="john@students.uonbi.ac.ke">
-                        <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
                     </div>
                 </div>
             </form>
-            </d iv>
+    
+    </div>
 </body>
 
 </html>

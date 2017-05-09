@@ -2,6 +2,8 @@
 // Get data from form
 $reg_no = $_POST['reg_no'];
 $password = $_POST['password'];
+$salt = 'chemshabongo';
+$cryptopassword = (hash(sha256, $salt.$_POST['password']));
 
 // Database data
 $db_host = "localhost";
@@ -17,11 +19,17 @@ if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+function redirect(){
+	header("Location: vote.php");
+	die();
+}
+
 $myquery = "SELECT * FROM registeredStudents WHERE studentRegistration = $reg_no";
 
 if ($value = mysqli_query($connection, $myquery)) {
      if (mysqli_fetch_assoc($value)['studentPassword'] == $password){
      	echo "Login Successful";
+     	redirect();
      }
      else{
      	echo "Login Unsuccessful";	
