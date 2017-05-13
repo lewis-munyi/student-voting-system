@@ -1,9 +1,15 @@
 <?php 
+
+session_start();
+
 // Get data from form
 $reg_no = $_POST['reg_no'];
 $password = $_POST['password'];
 $salt = 'chemshabongo';
 $cryptopassword = (hash(sha256, $salt.$_POST['password']));
+$cryptoregno = (hash(sha256, $salt.$_POST['reg_no']));
+echo $cryptoregno."HELLO";
+echo $cryptopassword."WORLD";
 
 // Database data
 $db_host = "localhost";
@@ -28,7 +34,13 @@ $myquery = "SELECT * FROM registeredStudents WHERE studentRegistration = $reg_no
 
 if ($value = mysqli_query($connection, $myquery)) {
      if (mysqli_fetch_assoc($value)['studentPassword'] == $password){
+        $firstname = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['first_name'];
+        $secondname = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['second_name'];
+        $_SESSION["reg_no"] = $reg_no;
+        $_SESSION["name"] = $firstname." ".$secondname;
      	echo "Login Successful";
+        echo ($_SESSION["name"]);
+
      	redirect();
      }
      else{

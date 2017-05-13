@@ -81,7 +81,7 @@
                 <div class="nav-wrapper blue dark">
                     <a href="#" class="brand-logo">Logo</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="#">1</a></li>
+                        <li><a href="#"><?php session_start(); echo ($_SESSION["name"]);?> </a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                     </ul>
@@ -676,3 +676,4 @@
 </body>
 
 </html>
+    
