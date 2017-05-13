@@ -35,6 +35,14 @@
     <div class="container">
         <script type="text/javascript">
         $(document).ready(function() {
+            $.getJSON("fetchcourses.php", function(return_data) {
+                $.each(return_data.data, function(key, value) {
+                    $("#coursetitle").append(
+                        "<option value=\"" + value.course_code + "\">" + value.course_title + "</option>"
+                        //"<option value=" + value.course_code + ">" + value.course_title + "</option>"
+                    );
+                });
+            });
             $('select').material_select();
         });
         </script>
@@ -56,185 +64,12 @@
                         <a class="">Registration Number</a>
                         <input placeholder="eg P15/12345/2016" id="reg_no" type="text" class="validate" name="reg_no">
                     </div>
-                    <!-- <div class="input-field col s6">
-                        <a class="">Course title</a>
-                        <input id="title" type="text" name="course_title" placeholder="eg BSc.Computer Science" class="validate">
-                    </div>
-                     -->
                     <div class="input-field col s6">
                         <a class="">Course title</a>
-                        <select name = "course_title">
-                            <optgroup label="Select course">
+                        <select name="course_title" id="course_title">
+                            <option value="">Agriculture,edunsion</option>
+                            <optgroup label="Select course" id="coursetitle" name="coursetitle">
                                 <option value="1">Agriculture,education And Extension</option>
-                                <option value="2">Agribusiness Management</option>
-                                <option value="3">Food Science, Nutrition & Dietetics</option>
-                                <option value="4">Climate Change & Development</option>
-                                <option value="5">Agribusiness Management</option>
-                                <option value="6">Agricultural Economics</option>
-                                <option value="7">Agricultural Education And Extension</option>
-                                <option value="8">Agricultureanimal Science Major</option>
-                                <option value="9">Fisheries And Aquaculture Management</option>
-                                <option value="10">Wildlife Management And Conservation</option>
-                                <option value="11">Food Science And Technology</option>
-                                <option value="12">Food Nutrition And Dietetics</option>
-                                <option value="13">Agriculture</option>
-                                <option value="14">Range Management</option>
-                                <option value="15">Management Of Agroecosystems & Environment</option>
-                                <option value="16">Horticulture</option>
-                                <option value="17">Bio-medical Technology</option>
-                                <option value="18">Wildlife Management</option>
-                                <option value="19">Veterinary Medicine</option>
-                                <option value="20">Wildlife Management And Conservation</option>
-                                <option value="21">Environmental Chemistry</option>
-                                <option value="22">Analytical Chemistry</option>
-                                <option value="23">Industrial Chemistry</option>
-                                <option value="24">Chemistry</option>
-                                <option value="25">Petroleum Geoscience</option>
-                                <option value="26">Actuarial Science</option>
-                                <option value="27">Mathematics</option>
-                                <option value="28">Statistics</option>
-                                <option value="29">Meteorology</option>
-                                <option value="30">Atmospheric Science</option>
-                                <option value="31">Microprocessor Technology & Instrumentation</option>
-                                <option value="32">In Astronomy And Astrophysics</option>
-                                <option value="33">Physics</option>
-                                <option value="34">Bed Science Physics</option>
-                                <option value="35">Biology</option>
-                                <option value="36">Microbiology And Biotechnology</option>
-                                <option value="37">Environmental Conservation And Natural Resource Management</option>
-                                <option value="38">Computer Science</option>
-                                <option value="39">Industrial Chemistry</option>
-                                <option value="40">Distance Learning</option>
-                                <option value="41">Geology Distance Learning</option>
-                                <option value="42">Education Science</option>
-                                <option value="43">Analytical Chemistry</option>
-                                <option value="44">Chemistry</option>
-                                <option value="45">Food Science & Technology</option>
-                                <option value="46">Design</option>
-                                <option value="47">Civil Engineering</option>
-                                <option value="48">Environmental And Biosystems Engineering</option>
-                                <option value="49">Electrical And Electronic Engineering</option>
-                                <option value="50">Surveying</option>
-                                <option value="51">Electrical Engineering</option>
-                                <option value="52">Geospatial Engineering</option>
-                                <option value="53">Mechanical Engineering</option>
-                                <option value="54">Real Estate</option>
-                                <option value="55">Construction Management</option>
-                                <option value="56">Quantity Surveying</option>
-                                <option value="57">Urban & Regional Planning</option>
-                                <option value="58">Commerce By Distance</option>
-                                <option value="59">Artsdistance</option>
-                                <option value="60">Education Arts, Distance</option>
-                                <option value="61">Education Arts (History And Geography)</option>
-                                <option value="62">Education Arts (History And Cre)</option>
-                                <option value="63">Education Arts (Geography And Mathematics)</option>
-                                <option value="64">Education Arts (Double Mathematics)</option>
-                                <option value="65">Education Arts (Mathematics And Business Studies)</option>
-                                <option value="66">Education Arts (Geography And Environmental Studies And Business Studies)</option>
-                                <option value="67">Education Arts (English And Literature)</option>
-                                <option value="68">Education Science In Physics And Geography And Environmental Studies</option>
-                                <option value="69">Education Science In Double Mathematics</option>
-                                <option value="70">Physics</option>
-                                <option value="71">Analytical Chemistry</option>
-                                <option value="72">Industrial Chemistry</option>
-                                <option value="73">Geology</option>
-                                <option value="74">Meteorology</option>
-                                <option value="75">Pure Mathematics</option>
-                                <option value="76">Applied Mathematics</option>
-                                <option value="77">Zoology</option>
-                                <option value="78">Botany</option>
-                                <option value="79">Geography And Environmental Studies</option>
-                                <option value="80">Arts (History)</option>
-                                <option value="81">Arts (Tourism)</option>
-                                <option value="82">Arts (English Language)</option>
-                                <option value="83">Arts (Literature)</option>
-                                <option value="84">Arts (Kiswahili)</option>
-                                <option value="85">Arts (Communication)</option>
-                                <option value="86">Arts (Arabic Studies)</option>
-                                <option value="87">Arts Sociology And Social Work</option>
-                                <option value="88">Arts Christian Religious Studies</option>
-                                <option value="89">Arts (Philosophy)</option>
-                                <option value="90">Arts (Psychology)</option>
-                                <option value="91">Arts (Guidance And Counseling)</option>
-                                <option value="92">Arts (Geography And Environmental Studies)</option>
-                                <option value="93">Commerce (Accounting)</option>
-                                <option value="94">Commerce (Finance)</option>
-                                <option value="95">Commerce (Marketing)</option>
-                                <option value="96">Commerce (Human Resource Management)</option>
-                                <option value="97">Commerce (Insurance And Management)</option>
-                                <option value="98">Commerce (Procurement And Purchasing And Supplies)</option>
-                                <option value="99">Commerce (Operations Management)</option>
-                                <option value="100">Commerce (Business Information Systems)</option>
-                                <option value="101">Arts In Political Science And Public Administration</option>
-                                <option value="102">Science By Distance Learning</option>
-                                <option value="103">Education Arts</option>
-                                <option value="104">Arts External Studies</option>
-                                <option value="105">Science External Studies</option>
-                                <option value="106">Education Arts</option>
-                                <option value="107">Education Science</option>
-                                <option value="108">Early Childhood Education</option>
-                                <option value="109">Education Early Childhood</option>
-                                <option value="110">Bahelor Of Education Ict</option>
-                                <option value="111">Arts By Distance Learning.</option>
-                                <option value="112">Arts By Distance Learning</option>
-                                <option value="113">Science By Distance Learning</option>
-                                <option value="114">Project Planning And Management</option>
-                                <option value="115">Education Science</option>
-                                <option value="116">Education Ict</option>
-                                <option value="117">Education Physical Education</option>
-                                <option value="118">Biochemistry</option>
-                                <option value="119">Human Anatomy</option>
-                                <option value="120">Medical Laboratory Sciences And Technology Mlst</option>
-                                <option value="121">Medical Laboratory Science And Technology</option>
-                                <option value="122">Tercalated Honors In Medical Physiology</option>
-                                <option value="123">Human Anatomyintercalated</option>
-                                <option value="124">Medicine And Surgery</option>
-                                <option value="125">Medical Physiology</option>
-                                <option value="126">Nursing</option>
-                                <option value="127">Dental Surgery</option>
-                                <option value="128">Pharmacy</option>
-                                <option value="129">Arts (Gender And Development)</option>
-                                <option value="130">Arts (Anthropology)</option>
-                                <option value="131">Economics</option>
-                                <option value="132">Economics & Statistics</option>
-                                <option value="133">Commerce - Finance Option</option>
-                                <option value="134">Commerce- Accounting Option</option>
-                                <option value="135">German Studies</option>
-                                <option value="136">Arts In International Studies</option>
-                                <option value="137">Arts In International Studies</option>
-                                <option value="138">Arts Broadcast Production</option>
-                                <option value="139">Arts Journalism & Media Studies</option>
-                                <option value="140">Kiswahili</option>
-                                <option value="141">Arts Degree In Korean Studies</option>
-                                <option value="142">Communication Skills</option>
-                                <option value="143">Law</option>
-                                <option value="144">Arts (Literature)</option>
-                                <option value="145">Arts (Performing Arts)</option>
-                                <option value="146">Commerce</option>
-                                <option value="147">Artsdistance</option>
-                                <option value="148">Education Arts, Distance</option>
-                                <option value="149">Science By Distance Learning</option>
-                                <option value="150">Education Arts,</option>
-                                <option value="151">Psychology Counselling</option>
-                                <option value="152">Arts (Psychology)</option>
-                                <option value="153">Arts (Social Work)</option>
-                                <option value="154">Arts (Sociology)</option>
-                                <option value="155">Criminology And Criminal Justice</option>
-                                <option value="156">Education Science</option>
-                                <option value="157">In Education Ict</option>
-                                <option value="158">Project Planning And Management</option>
-                                <option value="159">Commerce</option>
-                                <option value="160">Project Planning And Management</option>
-                                <option value="161">Economics</option>
-                                <option value="162">Economics & Statistics</option>
-                                <option value="163">Education Arts</option>
-                                <option value="164">Education Science</option>
-                                <option value="165">Education Early Childhood</option>
-                                <option value="166">Bahelor Of Education Ict</option>
-                                <option value="167">Education Arts - External Studies</option>
-                                <option value="168">Arts</option>
-                                <option value="169">Commerce</option>
-                                <option value="170">Project Planning And Management</option>
                             </optgroup>
                         </select>
                     </div>
@@ -252,14 +87,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s8">
                         <a class="">Email</a>
                         <input id="email" type="email" name="email" class="validate" placeholder="john@students.uonbi.ac.ke">
-                        <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
                     </div>
+                    <div class="input-field col s4">
+                        <a class="">Phone number</a>
+                        <input id="phone_number" type="number" name="phone_number" class="validate" placeholder="0712345678">
+                    </div>
+                    <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
                 </div>
+                <select name="lewis" id="lewis"></select>
             </form>
-            </d iv>
+        </div>
+    </div>
 </body>
 
 </html>

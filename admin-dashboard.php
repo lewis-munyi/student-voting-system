@@ -34,62 +34,27 @@
                 </ul>
             </div>
         </nav>
-    </div>
+    z</div>
     <script type="text/javascript">
     $(document).ready(function() {
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        // $('.modal').modal();
-        // $('#modal1').modal('open');
         $.getJSON("fetchregisteredstudents.php", function(return_data){
-$.each(return_data.data, function(key,value){
-$("#student").append(
-    "<option value=" + value.id +">"+value.name+"</option>"
-
-);
-
-});
-    });});
-
-    function openModal(){
-    	$('.modal').modal();
-        $('#modal1').modal('open');
-    }
-    $(document).ready(function() {
-//////////////////////
-
-
-
-
+            $.each(return_data.data, function(key,value){
+                $("#student").append(
+                    //"<li class="collection-item">"+value.first_name+"  "+value.last_name</option>"
+                    "<li class=\"collection-item\">"+value.first_name+" "+value.second_name+"</li>"
+                    );
+            });
+        });
+    });
     </script>
     <div class="container">
-
-   
-   <div class="row">
-        <ul class="collapsible" data-collapsible="accordion">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-      <div class="collapsible-body"><span>
-    <ul class="collection">
-      <li class="collection-item" name = "student" id="student">Alvin</li>
-      <li class="collection-item">Alvin</li>
-      <li class="collection-item">Alvin</li>
-      <li class="collection-item">Alvin</li>
-    </ul>
-            </span></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-  </ul>
-   </div>
-        <div class="row"></div>
-        <div class="row"></div>
-    </div>
+   <ul class="collection" name= "student" id= "student">
+          
+          <li class="collection-item">Alvin</li>
+          <li class="collection-item">Alvin</li>
+          <li class="collection-item">Alvin</li>
+        </ul>
+        </div>
 </body>
 
 </html>
