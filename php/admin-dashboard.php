@@ -34,27 +34,70 @@
                 </ul>
             </div>
         </nav>
-    z</div>
+        z</div>
     <script type="text/javascript">
     $(document).ready(function() {
-        $.getJSON("fetchregisteredstudents.php", function(return_data){
-            $.each(return_data.data, function(key,value){
+        $.getJSON("fetchregisteredstudents.php", function(return_data) {
+            $.each(return_data.data, function(key, value) {
                 $("#student").append(
-                    //"<li class="collection-item">"+value.first_name+"  "+value.last_name</option>"
-                    "<li class=\"collection-item\">"+value.first_name+" "+value.second_name+"</li>"
-                    );
+
+                    "<li class=\"collection-item\">" + value.first_name + " " + value.second_name + "</li>"
+                );
             });
         });
     });
     </script>
     <div class="container">
-   <ul class="collection" name= "student" id= "student">
-          
-          <li class="collection-item">Alvin</li>
-          <li class="collection-item">Alvin</li>
-          <li class="collection-item">Alvin</li>
-        </ul>
-        </div>
+
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+  </ul>
+        
+
+
+      <table class="bordered highlight centered responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Alvin</td>
+            <td>Eclair</td>
+            <td>$0.87</td>
+          </tr>
+          <tr>
+            <td>Alan</td>
+            <td>Jellybean</td>
+            <td>$3.76</td>
+          </tr>
+          <tr>
+            <td>Jonathan</td>
+            <td>Lollipop</td>
+            <td>$7.00</td>
+          </tr>
+        </tbody>
+      </table>
+            
+
+
+        <ul class="collection" name="student" id="student"></ul>
+    </div>
 </body>
 
 </html>
