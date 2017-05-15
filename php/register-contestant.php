@@ -3,12 +3,10 @@
 $reg_no = $_POST['reg_no'];
 $fname = $_POST['fname'];
 $sname = $_POST['sname'];
-$reg_no = $_POST['reg_no'];
 $course_title = $_POST['course_title'];
-$course_year = $_POST['course_year'];
+$phone_number = $_POST['phone_number'];
 $email = $_POST['email'];
-
-
+$rep_post = $_POST['rep_post'];
 
 // Database data
 $db_host = "localhost";
@@ -23,15 +21,28 @@ if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Sql Query
-$sql = "INSERT INTO contestants(contestantRegistrationNumber, first_name, second_name, contestantEmail, contestantCourse, academic_year,  contestantPost)
-VALUES ('$reg_no','$fname', '$sname', '$email', '$course_title', '$course_year', '0')";
+$myquery = "SELECT * FROM contestants WHERE contestantRegistrationNumber = $reg_no";
 
-if (mysqli_query($connection, $sql)) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+if ($value = mysqli_query($connection, $myquery)) {
+     if (mysqli_fetch_assoc($value)['contestantRegistrationNumber'] != $reg_no){
+     	// Sql Query
+		$sql = "INSERT INTO contestants(contestantRegistrationNumber, first_name, second_name, contestantEmail, contestantCourse, phone_number,  contestantPost)
+			VALUES ('$reg_no','$fname', '$sname', '$email', '$course_title', '$phone_number', '$rep_post')";
+		if (mysqli_query($connection, $sql)) {
+    		echo "New record created successfully";
+			}
+			else{
+    			echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+				}
+     	//redirect();
+     }
+     else{
+     	echo "Login Unccessful. \n The user already exists";
+     }
 }
+
+
+
 // Close connection
 mysqli_close($connection);
 ?>

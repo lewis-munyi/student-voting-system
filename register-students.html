@@ -40,46 +40,38 @@
         </script>
         <!-- Page Content goes here -->
         <div class="row">
-            <form class="col s12" method="POST" action="register-student.php">
+            <form class="col s12" method="POST" action="php/register-student.php">
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <a class="">First name</a>
                         <input id="fname" type="text" name="fname" class="validate" placeholder="Jack">
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <a class="">Second Name</a>
                         <input id="sname" type="text" name="sname" class="validate" placeholder="Sparrow">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s4">
-                       <a class="">Registration Number</a>
+                    <div class="input-field col s12 m6 l3">
+                        <a class="">Phone Number</a>
+                        <input id="phone" type="number" name="phone" placeholder="07xx xxx xxx" class="validate">
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <a class="">Registration Number</a>
                         <input placeholder="eg P15/12345/2016" id="reg_no" type="text" class="validate" name="reg_no">
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m12 l5">
                         <a class="">Course title</a>
                         <input id="course_title" type="text" name="course_title" placeholder="eg BSc.Computer Science" class="validate">
                     </div>
-                    <div class="input-field col s2">
-                        <a class="">Year</a>
-                        <select name="course_year">
-                            <option value="" disabled selected>Select year</option>
-                            <option value="1">First</option>
-                            <option value="2">Second</option>
-                            <option value="3">Third</option>
-                            <option value="4">Fourth</option>
-                            <option value="5">Fifth</option>
-                            <option value="6">Sixth</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s7">
+                    <div class="input-field col s12 m7">
                         <a class="">Email</a>
                         <input id="email" type="email" name="email" class="validate" placeholder="john@students.uonbi.ac.ke">
                         <!-- <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit"> -->
                     </div>
-                    <div class="input-field col s5">
+                    <div class="input-field col s12 m5">
                         <a class="">Password</a>
                         <input id="password" type="password" name="password" class="validate" placeholder="Enter your password">
                         <!-- <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit"> -->
@@ -89,7 +81,7 @@
                     <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
                 </div>
             </form>
-        </d	iv>
+            </d iv>
 </body>
 
 </html>

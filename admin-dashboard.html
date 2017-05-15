@@ -34,101 +34,104 @@
                 </ul>
             </div>
         </nav>
-    </div>
+        z</div>
     <script type="text/javascript">
     $(document).ready(function() {
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        // $('.modal').modal();
-        // $('#modal1').modal('open');
-        // Initialize collapse button
-  $(".button-collapse").sideNav();
-  // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-  $('.collapsible').collapsible();
+        $.getJSON("fetchregisteredstudents.php", function(return_data) {
+            $.each(return_data.data, function(key, value) {
+                $("#registeredstudents").append(
+
+                    //"<li class=\"collection-item\">" + value.first_name + " " + value.second_name + "</li>"
+                    "<tr><td>" + value.id + "</td><td>" + value.studentRegistration + "</td><td>" + value.first_name + " " + value.second_name + "</td><td>" + value.studentEmail + "</td></tr>"
+                );
+            });
+        });
+        $.getJSON("fetchcontestants.php", function(return_data) {
+            $.each(return_data.data, function(key, value) {
+                $("#registeredcontestants").append(
+
+                    //"<li class=\"collection-item\">" + value.first_name + " " + value.second_name + "</li>"
+                    "<tr><td>" + value.id + "</td><td>" + value.contestantRegistrationNumber + "</td><td>" + value.first_name + " " + value.second_name + "</td><td>" + value.contestantEmail + "</td><td>" + value.contestantCourse + "</tr>"
+                );
+            });
+        });
+        $.getJSON("fetchcourses.php", function(return_data) {
+            $.each(return_data.data, function(key, value) {
+                $("#courses").append(
+
+                    //"<li class=\"collection-item\">" + value.first_name + " " + value.second_name + "</li>"
+                    "<tr><td>" + value.course_code + "</td><td>" + value.course_title + "</td><tr>"
+                );
+            });
+        });
     });
-    function openModal(){
-    	$('.modal').modal();
-        $('#modal1').modal('open');
+    function registerstudent() {
+        Materialize.toast('Redirecting you....', 10000);
+        window.location.href = "http://localhost/student-voting-system/register-contestant.html";
+    }
+    function registercontestant() {
+        Materialize.toast('Redirecting you....', 10000);
+        window.location.href = "http://localhost/student-voting-system/register-contestant.html";
+    }
+    function modaladdcourse() {
+        Materialize.toast('Redirecting you....', 10000);
+        window.location.href = "http://localhost/student-voting-system/register-contestant.html";
     }
     </script>
-    <ul id="slide-out" class="side-nav">
-    <li><div class="userView">
-      <div class="background">
-        <img src="http://placehold.it/350x150">
-      </div>
-      <a href="#!user"><img class="circle" src="http://placehold.it/92x92"></a>
-      <a href="#!name"><span class="white-text name">John Doe</span></a>
-      <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-  </ul>
-  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
     <div class="container">
-     <!-- Modal Trigger -->
-  
-
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4>Registered students</h4>
-      <p>A bunch of text</p>
-
-      <ul class="collection with-header">
-        <li class="collection-header"><h4>First Names</h4></li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-
-      </ul>
-            
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-    </div>
-  </div>
-        <div class="row">
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=http%3A%2F%2Fwww.plus2net.com%2Fjquery%2Fimages%2Fdropdown-list.jpg&resize=w704">
-                        <span class="card-title">Registered students</span>
-                    </div>
-                    <div class="card-content">
-                        <p>All registered students come here</p>
-                    </div>
-                    <div class="card-action">
-                        <a class ="waves-effect" onclick="openModal()">View</a>
-                        <!-- <a class="modal-trigger waves-effect waves-light btn" href="#modal1">View</a> -->
-                    </div>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">person</i>Registered students<i class="material-icons right tooltipped" data-position="top" data-delay="50" data-tooltip="Click to add more students"  onclick="registerstudent()">add</i></div>
+                <div class="collapsible-body">
+                    <table class="bordered highlight centered responsive-table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Registration number</th>
+                                <th>Student Name</th>
+                                <th>Student Email</th>
+                            </tr>
+                        </thead>
+                        <tbody name="registeredstudents" id="registeredstudents"></tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
-        <div class="row"></div>
-        <div class="row"></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">person</i>Registered contestants<i class="material-icons right tooltipped" data-position="top" data-delay="50" data-tooltip="Click to add more contestants" onclick="registercontestant()" ">add</i></div>
+                
+                <div class="collapsible-body ">
+                    <table class="bordered highlight centered responsive-table ">
+                        <thead>
+                            <tr>
+                                <th>Id.</th>
+                                <th>Registration number</th>
+                                <th>Contestant Name</th>
+                                <th>Contestant Email</th>
+                                <th>Contestant Course</th>
+                            </tr>
+                        </thead>
+                        <tbody name="registeredcontestants" id="registeredcontestants"></tbody>
+                    </table>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header "><i class="material-icons ">book</i>Courses offered<i class="material-icons right tooltipped" data-position="top" data-delay="50" data-tooltip="Click to add more courses" onclick="modaladdcourse() ">add</i></div>
+                <div class="collapsible-body ">
+                    <table class="bordered highlight centered responsive-table ">
+                        <thead>
+                            <tr>
+                                <th>Id.</th>
+                                <th>Course title</th>
+                            </tr>
+                        </thead>
+                        <tbody name="courses" id="courses"></tbody>
+                        
+                    </table>
+                    
+                </div>
+            </li>
+        </ul>
+        <!-- <ul class="collection " name="student " id="student "></ul> -->
     </div>
 </body>
 

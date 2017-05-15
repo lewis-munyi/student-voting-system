@@ -35,69 +35,67 @@
     <div class="container">
         <script type="text/javascript">
         $(document).ready(function() {
-            $.getJSON("fetchcourses.php", function(return_data) {
+            $.getJSON("php/fetchcourses.php", function(return_data) {
                 $.each(return_data.data, function(key, value) {
                     $("#coursetitle").append(
-                        "<option value=\"" + value.course_code + "\">" + value.course_title + "</option>"
-                        //"<option value=" + value.course_code + ">" + value.course_title + "</option>"
+                        "<option value=\""+value.course_code+"\">"+value.course_title+"</option>"
                     );
                 });
+                $('select').material_select();
             });
-            $('select').material_select();
+            $.getJSON("php/fetchpost.php", function(return_data) {
+                $.each(return_data.data, function(key, value) {
+                    $("#reppost").append(
+                        "<option value=\""+value.id+"\">"+value.post_title+"</option>"
+                    );
+                });
+                $('select').material_select();
+            });
         });
         </script>
         <!-- Page Content goes here -->
         <div class="row">
-            <form class="col s12" method="POST" action="register-contestant.php">
+            <form class="col s12" method="POST" action="php/register-contestant.php">
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m12 l6">
                         <a class="">First name</a>
                         <input id="fname" type="text" name="fname" class="validate" placeholder="Jack">
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m12 l6">
                         <a class="">Second Name</a>
                         <input id="sname" type="text" name="sname" class="validate" placeholder="Sparrow">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6 l3">
                         <a class="">Registration Number</a>
-                        <input placeholder="eg P15/12345/2016" id="reg_no" type="text" class="validate" name="reg_no">
+                        <input placeholder="eg P15/12345/2016" id="reg_no" type="number" class="validate" name="reg_no">
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 l4">
+                        <a class="">Phone number</a>
+                        <input id="phone_number" type="number" name="phone_number" class="validate" placeholder="0712345678">
+                    </div>
+                    <div class="input-field col s12 m12 l5">
                         <a class="">Course title</a>
                         <select name="course_title" id="course_title">
-                            <option value="">Agriculture,edunsion</option>
-                            <optgroup label="Select course" id="coursetitle" name="coursetitle">
-                                <option value="1">Agriculture,education And Extension</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                    <div class="input-field col s2">
-                        <a class="">Year</a>
-                        <select name="course_year">
-                            <option value="" disabled selected>Select year</option>
-                            <option value="1">First</option>
-                            <option value="2">Second</option>
-                            <option value="3">Third</option>
-                            <option value="4">Fourth</option>
-                            <option value="5">Fifth</option>
-                            <option value="6">Sixth</option>
+                            <optgroup label="Select course" id="coursetitle" name="coursetitle"></optgroup>
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s8">
+                    <div class="input-field col s12 m6 l6">
                         <a class="">Email</a>
                         <input id="email" type="email" name="email" class="validate" placeholder="john@students.uonbi.ac.ke">
                     </div>
-                    <div class="input-field col s4">
-                        <a class="">Phone number</a>
-                        <input id="phone_number" type="number" name="phone_number" class="validate" placeholder="0712345678">
+                    <div class="input-field col s12 m6 l6">
+                        <a class="">Representative post</a>
+                        <select name="rep_post" id="rep_post">
+                            <optgroup label="Select post" id="reppost" name="reppost"></optgroup>
+                        </select>
                     </div>
                     <input type="submit" value="Register" name="btnSubmit" class="waves-effect waves-light btn" id="btnSubmit">
                 </div>
-                <select name="lewis" id="lewis"></select>
+                
             </form>
         </div>
     </div>

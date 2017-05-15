@@ -25,6 +25,15 @@
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal').modal();
         $('#modal1').modal('open');
+        $.getJSON("fetchchairpersons.php", function(return_data) {
+            $.each(return_data.data, function(key, value) {
+                $("#chairman_1").append(
+
+                    //"<li class=\"collection-item\">" + value.first_name + " " + value.second_name + "</li>"
+                    "<tr><td>" + value.id + "</td><td>" + value.studentRegistration + "</td><td>" + value.first_name + " " + value.second_name + "</td><td>" + value.studentEmail + "</td></tr>"
+                );
+            });
+        });
     });
 
     function check() {
@@ -55,7 +64,6 @@
         $('input[name = "sonugendersec"]').on('change', function() {
             $('input[name = "sonugendersec"]').not(this).prop('checked', false);
         });
-
     }
     </script>
     <form>
@@ -97,7 +105,7 @@
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
                             <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
+                            <div class="collapsible-body" name ="chairman_1" id="chairman_1">
                                 <p>
                                     <input type="checkbox" id="sonuchairperson1" name="sonuchairperson" onclick="check();" value="" />
                                     <label for="sonuchairperson1">one</label>
@@ -480,7 +488,7 @@
             <div class="row">
                 <u><h2>NUCOMPSA</h2></u>
             </div>
-<div class="row">
+            <div class="row">
                 <div class="col s12 m6 ">
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
