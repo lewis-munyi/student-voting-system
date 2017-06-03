@@ -3,6 +3,8 @@
 
 <head>
     <title>Vote page</title>
+    <!-- Flipclock CSS -->
+    <link rel="stylesheet" href="css/flipclock.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -17,663 +19,360 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Add Local jquery -->
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- Flipclock JS -->
+    <script src="js/flipclock.min.js"></script>
 </head>
 
 <body>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
-        $('#modal1').modal('open');
-    });
+    <?php
+    session_start();
 
-    function check() {
-        $('input[name = "checkboxes"]').on('change', function() {
-            $('input[name = "checkboxes"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonuchairperson"]').on('change', function() {
-            $('input[name = "sonuchairperson"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonuvicechairperson"]').on('change', function() {
-            $('input[name = "sonuvicechairperson"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonusecretarygeneral"]').on('change', function() {
-            $('input[name = "sonusecretarygeneral"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonuorganizingsecretary"]').on('change', function() {
-            $('input[name = "sonuorganizingsecretary"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonutreasurer"]').on('change', function() {
-            $('input[name = "sonutreasurer"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonusecretarysportsandentertainment"]').on('change', function() {
-            $('input[name = "sonusecretarysportsandentertainment"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonuhealthsecretary"]').on('change', function() {
-            $('input[name = "sonuhealthsecretary"]').not(this).prop('checked', false);
-        });
-        $('input[name = "sonugendersec"]').on('change', function() {
-            $('input[name = "sonugendersec"]').not(this).prop('checked', false);
+    $mysqli = mysqli_connect("localhost","root","root","votingSystem");
+?>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+            $('#terms').modal('open');
+
+            // var clock = $('.clock').FlipClock(3600 * 24 * 3, {
+
+            //         var clock = $('.clock').FlipClock(1 * 24 * 3, {
+            //             clockFace: 'DailyCounter',
+            //             countdown: true,
+            //             onStart: function() {
+            //     // Do something
+            //     alert("hello")
+            // },
+            //             // The onStop callback
+            //             onStop: function() {
+            //                 var $warning = $('<span>Voting has been closed! Redirecting..</span>');
+            //                 Materialize.toast($warning, 5000)
+            //                 // Do something
+            //                 /*document.getElementById('btnVote').disabled = true;
+            //                 var $warning = $('<span>Voting has been closed! Redirecting..</span>');
+            //                 Materialize.toast($warning, 5000,
+            //                     function() {
+            //                         window.location.replace("student-dashboard.php");
+            //                     });*/
+            //             },  
+            //         });
+
+            $('select').material_select();
         });
 
-    }
-    </script>
-    <form>
-        <!-- Modal Trigger -->
-        <!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <h4>Terms and conditions</h4>
-                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate laboriosam illum praesentium eos repudiandae et autem molestias ex aspernatur perferendis ducimus, fugit consectetur doloribus ipsa cumque possimus tempore dolorum, distinctio!</span>
-                    <span>Quis soluta maxime error ullam, sit rem possimus velit labore tenetur repellat nesciunt eos ex, earum praesentium similique laborum consectetur. personat optio earum tempore maxime cupiditate deserunt iusto repellendus vitae.</span>
-                    <span>Quam dicta itaque deleniti cupiditate, eligendi, amet, neque sapiente, unde optio sit delectus labore suscipit sunt rem! Quibusdam aspernatur quidem et, cumque eum dolore rem deserunt velit. Ut, voluptates, amet!</span>
-                    <span>Maxime in doloribus nobis voluptates architecto eos, veritatis inventore qui odit reprehenderit voluptas debitis blanditiis ratione minus sapiente, recusandae repudiandae sequi. Mollitia consectetur culpa aliquam optio delectus quia qui repellendus.</span>
-                    <span>Rerum culpa amet alias et consequatur ipsa fugiat ab, expedita porro! Inventore aperiam quam corporis temporibus a, perferendis delectus laudantium praesentium. Facilis quaerat molestias maxime rerum, eos, ut quasi illum.</span></p>
-            </div>
-            <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                <a class="modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
-            </div>
-        </div>
-        <div class="navbar-fixed">
-            <nav>
-                <div class="nav-wrapper blue dark">
-                    <a href="#" class="brand-logo">Logo</a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="#"><?php session_start(); echo ($_SESSION["name"]);?> </a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                    </ul>
+        function itemselected(selectItem) {
+            if (selectItem == 1) {
+                var itemSelected1 = $("#item1 option:selected").text();
+                document.getElementById('tr1').innerText = itemSelected1;
+            }
+            if (selectItem == 2) {
+                var itemSelected2 = $("#item2 option:selected").text();
+                document.getElementById('tr2').innerText = itemSelected2;
+            }
+            if (selectItem == 3) {
+                var itemSelected3 = $("#item3 option:selected").text();
+                document.getElementById('tr3').innerText = itemSelected3;
+            }
+            if (selectItem == 4) {
+                var itemSelected4 = $("#item4 option:selected").text();
+                document.getElementById('tr4').innerText = itemSelected4;
+            }
+            if (selectItem == 5) {
+                var itemSelected4 = $("#item5 option:selected").text();
+                document.getElementById('tr5').innerText = itemSelected4;
+            }
+            if (selectItem == 6) {
+                var itemSelected4 = $("#item6 option:selected").text();
+                document.getElementById('tr6').innerText = itemSelected4;
+            }
+            if (selectItem == 7) {
+                var itemSelected4 = $("#item7 option:selected").text();
+                document.getElementById('tr7').innerText = itemSelected4;
+            }
+            if (selectItem == 8) {
+                var itemSelected4 = $("#item8 option:selected").text();
+                document.getElementById('tr8').innerText = itemSelected4;
+            }
+        }
+
+        function check() {
+            var myvalue1 = document.getElementById('item1').value;
+            var myvalue2 = document.getElementById('item2').value;
+            var myvalue3 = document.getElementById('item3').value;
+            var myvalue4 = document.getElementById('item4').value;
+            var myvalue5 = document.getElementById('item5').value;
+            var myvalue6 = document.getElementById('item6').value;
+            var myvalue7 = document.getElementById('item7').value;
+            var myvalue8 = document.getElementById('item8').value;
+            if ((myvalue8 === "") || (myvalue7 === "") || (myvalue6 === "") || (myvalue5 === "") || (myvalue4 === "") || (myvalue3 === "") || (myvalue2 === "") || (myvalue1 === "")) {
+                var $toastContent = $('<span>Please ensure you select all the fields</span>');
+                Materialize.toast($toastContent, 5000);
+            } else {
+                $('#confirmation').modal('open');
+            }
+        }
+        </script>
+        <form action="php/voteprocess.php" method="post">
+            <!-- Modal Trigger -->
+            <!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
+            <!-- Modal Structure -->
+            <div id="terms" class="modal">
+                <div class="modal-content">
+                    <h4>Terms and conditions</h4>
+                     <ol type="1">
+  <li>Only valid UON students are allowed to vote on this portal</li>
+  <li>You can only vote for yoor candidates once</li>
+  <li>Any irregularities should be imediatly reported to the university administration</li>
+  <li>No students should sharer their login credentials with other people</li>
+</ol> 
                 </div>
-            </nav>
-        </div>
-        <div class="container">
-            <div class="row">
-                <u><h2>University Level Student leaders (Sonu)</h2></u>
-            </div>
-            <div class="row">
-                <div class="col s12 m6 ">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson1" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson1">one</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson2" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson2">two</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson3" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson3">three</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson4" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson4">four </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson5" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson5">four </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Vice Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson1" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson1">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson2" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson2">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson3" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson3">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson4" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson4">sonuvicechairperson </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Health & Accomodation<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary1" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary1">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary2" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary2">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary3" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary3">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary4" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary4">sonuhealthsecretary </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary5" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary5">sonuhealthsecretary </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Gender affairs<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonugendersec1" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec1">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec2" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec2">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec3" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec3">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec4" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec4">sonugendersec </label>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col s12 m6 ">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Secretary general<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral1" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral1">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral2" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral2">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral3" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral3">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral4" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral4">sonusecretarygeneral </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Organising Secretary<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary1" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary1">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary2" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary2">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary3" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary3">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary4" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary4">sonuorganizingsecretary </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary5" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary5">sonuorganizingsecretary </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Treasurer<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer1" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer1">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer2" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer2">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer3" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer3">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer4" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer4">sonutreasurer </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Sports & Ent. Secretary <i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment2" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment2">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment3" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment3">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment4" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment4">sonusecretarysportsandentertainment </label>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
                 </div>
             </div>
-            <div class="divider"></div>
-            <div class="row">
-                <u><h2>College Level Leaders(ONUSS)</h2></u>
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper blue dark">
+                        <a href="#" class="brand-logo">University Of Nairobi</a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li>
+                                <a href="#">
+                                    <?php echo($_SESSION["name"]);?>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
-            <div class="row">
-                <div class="col s12 m6 ">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson1" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson1">one</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson2" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson2">two</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson3" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson3">three</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson4" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson4">four </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson5" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson5">four </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Vice Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson1" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson1">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson2" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson2">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson3" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson3">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson4" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson4">sonuvicechairperson </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Health & Accomodation<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary1" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary1">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary2" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary2">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary3" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary3">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary4" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary4">sonuhealthsecretary </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary5" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary5">sonuhealthsecretary </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Gender affairs<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonugendersec1" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec1">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec2" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec2">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec3" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec3">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec4" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec4">sonugendersec </label>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="container">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="clock"></div>
+                    </div>
+                    <script type="text/javascript">
+                    var clock = $('.clock').FlipClock(30065 * 24 * 3, {
+                        clockFace: 'DailyCounter',
+                        countdown: true,
+                        onStart: function() {
+                            // Do something
+                            alert("hello")
+                        },
+                        // The onStop callback
+                        onStop: function() {
+                            var $warning = $('<span>Voting has been closed! Redirecting..</span>');
+                            Materialize.toast($warning, 5000)
+                                // Do something
+                                /*document.getElementById('btnVote').disabled = true;
+                                var $warning = $('<span>Voting has been closed! Redirecting..</span>');
+                                Materialize.toast($warning, 5000,
+                                    function() {
+                                        window.location.replace("student-dashboard.php");
+                                    });*/
+                        },
+                    });
+                    </script>
                 </div>
-                <div class="col s12 m6 ">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Secretary general<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral1" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral1">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral2" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral2">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral3" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral3">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral4" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral4">sonusecretarygeneral </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Organising Secretary<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary1" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary1">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary2" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary2">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary3" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary3">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary4" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary4">sonuorganizingsecretary </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary5" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary5">sonuorganizingsecretary </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Treasurer<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer1" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer1">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer2" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer2">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer3" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer3">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer4" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer4">sonutreasurer </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Sports & Ent. Secretary <i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment2" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment2">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment3" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment3">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment4" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment4">sonusecretarysportsandentertainment </label>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="row">
+                    Select your leader
                 </div>
-            </div>
-            <div class="divider"></div>
-            <div class="row">
-                <u><h2>NUCOMPSA</h2></u>
-            </div>
-<div class="row">
-                <div class="col s12 m6 ">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson1" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson1">one</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson2" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson2">two</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson3" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson3">three</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson4" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson4">four </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuchairperson5" name="sonuchairperson" onclick="check();" value="" />
-                                    <label for="sonuchairperson5">four </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Vice Chairperson<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson1" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson1">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson2" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson2">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson3" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson3">sonuvicechairperson</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuvicechairperson4" name="sonuvicechairperson" onclick="check();" value="" />
-                                    <label for="sonuvicechairperson4">sonuvicechairperson </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Health & Accomodation<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary1" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary1">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary2" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary2">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary3" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary3">sonuhealthsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary4" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary4">sonuhealthsecretary </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuhealthsecretary5" name="sonuhealthsecretary" onclick="check();" value="" />
-                                    <label for="sonuhealthsecretary5">sonuhealthsecretary </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Gender affairs<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonugendersec1" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec1">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec2" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec2">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec3" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec3">sonugendersec</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonugendersec4" name="sonugendersec" onclick="check();" value="" />
-                                    <label for="sonugendersec4">sonugendersec </label>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item1" id="chairperson" onchange="itemselected(1)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 1";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Chairperson</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item2" id="vice" onchange="itemselected(2)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 2";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Vice Chairperson</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item3" name="treasurer" onchange="itemselected(3)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 5";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Treasurer</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col s12 m6 ">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Secretary general<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral1" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral1">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral2" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral2">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral3" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral3">sonusecretarygeneral</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarygeneral4" name="sonusecretarygeneral" onclick="check();" value="" />
-                                    <label for="sonusecretarygeneral4">sonusecretarygeneral </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Organising Secretary<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary1" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary1">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary2" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary2">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary3" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary3">sonuorganizingsecretary</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary4" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary4">sonuorganizingsecretary </label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonuorganizingsecretary5" name="sonuorganizingsecretary" onclick="check();" value="" />
-                                    <label for="sonuorganizingsecretary5">sonuorganizingsecretary </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Treasurer<i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer1" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer1">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer2" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer2">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer3" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer3">sonutreasurer</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonutreasurer4" name="sonutreasurer" onclick="check();" value="" />
-                                    <label for="sonutreasurer4">sonutreasurer </label>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header waves-effect"><i class="material-icons">person</i>Sports & Ent. Secretary <i class="material-icons right">arrow_drop_down</i></div>
-                            <div class="collapsible-body">
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment2" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment2">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment3" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment3">sonusecretarysportsandentertainment</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="sonusecretarysportsandentertainment4" name="sonusecretarysportsandentertainment" onclick="check();" value="" />
-                                    <label for="sonusecretarysportsandentertainment4">sonusecretarysportsandentertainment </label>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item4" id="academics" onchange="itemselected(4)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 3";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        ?>
+                            </select>
+                            <label>Academics Secretary</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item5" id="orgsec" onchange="itemselected(5)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 4";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Organizing Secretary</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item6" id="sports" onchange="itemselected(6)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 6";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Sports & Entertainment secretary</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">Footer</div>
-        </div>
-    </form>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item7" id="gender" onchange="itemselected(7)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 8";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Gender affairs</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l4">
+                        <div class="input-field col s12">
+                            <select id="item8" id="accom" onchange="itemselected(8)">
+                                <option value="" disabled selected>Select representative</option>
+                                <?php
+                        $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 7";
+                        $result = mysqli_query($mysqli,$sqlSelect);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['contestantRegistrationNumber'] . "'>" . $row['first_name'] . " " . $row[second_name] . "</option>";
+                        }
+                        
+
+                        ?>
+                            </select>
+                            <label>Health & Accomodation secretary</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="confirmation" class="modal">
+                    <div class="modal-content">
+                        <h4>Confirm your selection</h4>
+                        <p><span>Please confirm that these are the candiates you wish to elect.</span>
+                        </p>
+                        <table>
+                            <tr>
+                                <td><b>Chairperson</b></td>
+                                <td id="tr1"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Vice Chairperson</b></td>
+                                <td id="tr2"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Treasurer</b></td>
+                                <td id="tr3"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Academics secretary</b></td>
+                                <td id="tr4"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Organizing secretary</b></td>
+                                <td id="tr5"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Sports & Entertainment</b></td>
+                                <td id="tr6"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender affairs</b></td>
+                                <td id="tr7"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Health, Accomodation and Catering secretary</b></td>
+                                <td id="tr8"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Proceed</button>
+                        <a class="modal-action modal-close waves-effect waves-green btn-flat active">Change</a>
+                    </div>
+                </div>
+                <a class="waves-effect waves-light btn" id="btnVote" onclick="check()">vote</a>
+        </form>
 </body>
 
 </html>
-    

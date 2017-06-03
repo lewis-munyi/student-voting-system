@@ -3,6 +3,8 @@
 
 <head>
     <title>Vote page</title>
+    <!-- Flipclock CSS -->
+    <link rel="stylesheet" href="css/flipclock.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -17,17 +19,30 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Add Local jquery -->
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- Flipclock JS -->
+    <script src="js/flipclock.min.js"></script>
 </head>
 
 <body>
     <?php
-$mysqli = mysqli_connect("localhost","root","root","votingSystem");
+    session_start();
+
+    $mysqli = mysqli_connect("localhost","root","root","votingSystem");
 ?>
         <script type="text/javascript">
         $(document).ready(function() {
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-            $('.modal').modal();
+            $('.modal').modal({dismissible: false});
             $('#terms').modal('open');
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd>=16 && mm >= 6 && yyyy >= 2017) {
+    document.getElementById("btnVote").disabled=true;
+    Materialize.toast('I am a toast', 4000,'',function(){window.location.href="http://localhost/student-voting-system/student-dashboard.html"});
+} 
 
             $('select').material_select();
         });
@@ -35,7 +50,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
         function itemselected(selectItem) {
             if (selectItem == 1) {
                 var itemSelected1 = $("#item1 option:selected").text();
-                    document.getElementById('tr1').innerText = itemSelected1;
+                document.getElementById('tr1').innerText = itemSelected1;
             }
             if (selectItem == 2) {
                 var itemSelected2 = $("#item2 option:selected").text();
@@ -66,7 +81,12 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                 document.getElementById('tr8').innerText = itemSelected4;
             }
         }
-        function check(){
+        function dismiss(){
+            var $exit = $('<span>Exiting..</span>');
+                Materialize.toast($exit, 5000);
+            window.location.href="http://localhost/student-voting-system/student-login.html";
+        }
+        function check() {
             var myvalue1 = document.getElementById('item1').value;
             var myvalue2 = document.getElementById('item2').value;
             var myvalue3 = document.getElementById('item3').value;
@@ -75,55 +95,87 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
             var myvalue6 = document.getElementById('item6').value;
             var myvalue7 = document.getElementById('item7').value;
             var myvalue8 = document.getElementById('item8').value;
-            if ((myvalue8 === "") || (myvalue7 === "") || (myvalue6 === "") || (myvalue5 === "") || (myvalue4 === "") || (myvalue3 === "") || (myvalue2 === "") || (myvalue1 === "")){
-                 var $toastContent = $('<span>Please ensure you select all the fields</span>');
-                 Materialize.toast($toastContent, 5000);
-            }
-            else{
+            if ((myvalue8 === "") || (myvalue7 === "") || (myvalue6 === "") || (myvalue5 === "") || (myvalue4 === "") || (myvalue3 === "") || (myvalue2 === "") || (myvalue1 === "")) {
+                var $toastContent = $('<span>Please ensure you select all the fields</span>');
+                Materialize.toast($toastContent, 5000);
+            } else {
                 $('#confirmation').modal('open');
             }
         }
         </script>
-        <form action="index.html" method="post">
+        <form action="php/voteprocess.php" method="post">
             <!-- Modal Trigger -->
             <!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
             <!-- Modal Structure -->
             <div id="terms" class="modal">
                 <div class="modal-content">
                     <h4>Terms and conditions</h4>
-                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate laboriosam illum praesentium eos repudiandae et autem molestias ex aspernatur perferendis ducimus, fugit consectetur doloribus ipsa cumque possimus tempore dolorum, distinctio!</span>
-                        <span>Quis soluta maxime error ullam, sit rem possimus velit labore tenetur repellat nesciunt eos ex, earum praesentium similique laborum consectetur. personat optio earum tempore maxime cupiditate deserunt iusto repellendus vitae.</span>
-                        <span>Quam dicta itaque deleniti cupiditate, eligendi, amet, neque sapiente, unde optio sit delectus labore suscipit sunt rem! Quibusdam aspernatur quidem et, cumque eum dolore rem deserunt velit. Ut, voluptates, amet!</span>
-                        <span>Maxime in doloribus nobis voluptates architecto eos, veritatis inventore qui odit reprehenderit voluptas debitis blanditiis ratione minus sapiente, recusandae repudiandae sequi. Mollitia consectetur culpa aliquam optio delectus quia qui repellendus.</span>
-                        <span>Rerum culpa amet alias et consequatur ipsa fugiat ab, expedita porro! Inventore aperiam quam corporis temporibus a, perferendis delectus laudantium praesentium. Facilis quaerat molestias maxime rerum, eos, ut quasi illum.</span></p>
+                    <h5>By proceeding you hereby agree to the followig terms and conditions:</h5>
+                     <ol type="1">
+  <li>Only valid UON students are allowed to vote on this portal</li>
+  <li>You can only vote for yoor candidates once</li>
+  <li>Any irregularities should be imediatly reported to the university administration</li>
+  <li>No students should share their login credentials with other people</li>
+</ol> 
                 </div>
                 <div class="modal-footer">
                     <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat" onclick="dismiss()">Disagree</a>
                 </div>
             </div>
             <div class="navbar-fixed">
                 <nav>
                     <div class="nav-wrapper blue dark">
-                        <a href="#" class="brand-logo">Logo</a>
+                        <a href="#" class="brand-logo">University Of Nairobi</a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
+                            <li>
+                                <a href="#">
+                                    <?php echo($_SESSION["name"]);?>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
             </div>
             <div class="container">
+                <div class="row"></div>
                 <div class="row">
-                    <u>
-                    <h2>University Level Student leaders (Sonu)</h2>
-                </u>
+                <div class="col s12 m2 2">
+                       <h4>Time left:</h4>
+                    </div>
+                    <div class="col s12 m10 l10">
+                        <div class="clock"></div>
+                    </div>
+                    <script type="text/javascript">
+                    var clock = $('.clock').FlipClock(30065 * 24 * 3, {
+                        clockFace: 'DailyCounter',
+                        countdown: true,
+                        onStart: function() {
+                            // Do something
+                            alert("hello")
+                        },
+                        // The onStop callback
+                        onStop: function() {
+                            var $warning = $('<span>Voting has been closed! Redirecting..</span>');
+                            Materialize.toast($warning, 5000)
+                                // Do something
+                                /*document.getElementById('btnVote').disabled = true;
+                                var $warning = $('<span>Voting has been closed! Redirecting..</span>');
+                                Materialize.toast($warning, 5000,
+                                    function() {
+                                        window.location.replace("student-dashboard.php");
+                                    });*/
+                        },
+                    });
+                    </script>
+                </div>
+                <div class="row">
+                    Select your leader
                 </div>
                 <div class="row">
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item1" onchange="itemselected(1)">
+                            <select id="item1" name="chairperson" onchange="itemselected(1)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 1";
@@ -141,7 +193,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                     </div>
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item2" onchange="itemselected(2)">
+                            <select id="item2" name="vice" onchange="itemselected(2)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 2";
@@ -159,7 +211,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                     </div>
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item3" onchange="itemselected(3)">
+                            <select id="item3" name="treasurer" onchange="itemselected(3)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 5";
@@ -179,7 +231,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                 <div class="row">
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item4" onchange="itemselected(4)">
+                            <select id="item4" name="academics" onchange="itemselected(4)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 3";
@@ -195,7 +247,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                     </div>
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item5" onchange="itemselected(5)">
+                            <select id="item5" name="orgsec" onchange="itemselected(5)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 4";
@@ -213,7 +265,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                     </div>
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item6" onchange="itemselected(6)">
+                            <select id="item6" name="sports" onchange="itemselected(6)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 6";
@@ -233,7 +285,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                 <div class="row">
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item7" onchange="itemselected(7)">
+                            <select id="item7" name="gender" onchange="itemselected(7)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 8";
@@ -251,7 +303,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                     </div>
                     <div class="col s12 m6 l4">
                         <div class="input-field col s12">
-                            <select id="item8" onchange="itemselected(8)">
+                            <select id="item8" name="accom" onchange="itemselected(8)">
                                 <option value="" disabled selected>Select representative</option>
                                 <?php
                         $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 7";
@@ -313,11 +365,7 @@ $mysqli = mysqli_connect("localhost","root","root","votingSystem");
                         <a class="modal-action modal-close waves-effect waves-green btn-flat active">Change</a>
                     </div>
                 </div>
-                <a class="waves-effect waves-light btn" onclick="check()">vote</a>
-                
-                <div class="divider"></div>
-                <div class="row">Footer</div>
-            </div>
+                <a class="waves-effect waves-light btn" id="btnVote" onclick="check()">vote</a>
         </form>
 </body>
 

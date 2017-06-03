@@ -31,7 +31,7 @@ function voteStatus($votestatus){
         // Close connection
         mysqli_close($connection);
     } else if ($votestatus == 0 || $votestatus = "") {
-        header("Location: vote.php");
+        header("Location: http://localhost/student-voting-system/vote.php");
         // Close connection
         mysqli_close($connection);
     } 
