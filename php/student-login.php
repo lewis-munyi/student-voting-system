@@ -25,8 +25,19 @@ if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-function redirect(){
-	header("Location: vote.php");
+function voteStatus($votestatus){
+    if ($votestatus == 1) {
+        header("Location: student-dashboard.html");
+        // Close connection
+        mysqli_close($connection);
+    } else if ($votestatus == 0 || $votestatus = "") {
+        header("Location: vote.php");
+        // Close connection
+        mysqli_close($connection);
+    } 
+    
+
+	
 	die();
 }
 
@@ -38,10 +49,10 @@ if ($value = mysqli_query($connection, $myquery)) {
         $secondname = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['second_name'];
         $_SESSION["reg_no"] = $reg_no;
         $_SESSION["name"] = $firstname." ".$secondname;
-     	echo "Login Successful";
-        echo ($_SESSION["name"]);
+     	
+        $votestatus = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['voteStatus'];
 
-     	redirect();
+     	voteStatus($votestatus);
      }
      else{
      	echo "Login Unsuccessful";	
@@ -49,7 +60,4 @@ if ($value = mysqli_query($connection, $myquery)) {
 } else {
     echo "Error: " . $myquery . "<br>" . mysqli_error($connection);
 } 
-
-// Close connection
-mysqli_close($connection);
 ?>
