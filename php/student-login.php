@@ -15,7 +15,7 @@ echo $cryptopassword."WORLD";
 $db_host = "localhost";
 $db_name = "votingSystem";
 $db_user = "root";
-$db_password ="root";	
+$db_password ="root";   
 
 // Create connection
 $connection = mysqli_connect($db_host, $db_user ,$db_password, $db_name);
@@ -27,18 +27,16 @@ if (!$connection) {
 
 function voteStatus($votestatus){
     if ($votestatus == 1) {
-        header("Location: student-dashboard.html");
-        // Close connection
-        mysqli_close($connection);
+       header("Location: http://localhost/student-voting-system/student-dashboard.php");
     } else if ($votestatus == 0 || $votestatus = "") {
-        header("Location: http://localhost/student-voting-system/vote.php");
+        header("Location: http://localhost/student-voting-system/php/generatesms.php");
         // Close connection
         mysqli_close($connection);
     } 
     
 
-	
-	die();
+    
+    die();
 }
 
 $myquery = "SELECT * FROM registeredStudents WHERE studentRegistration = $reg_no";
@@ -49,13 +47,13 @@ if ($value = mysqli_query($connection, $myquery)) {
         $secondname = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['second_name'];
         $_SESSION["reg_no"] = $reg_no;
         $_SESSION["name"] = $firstname." ".$secondname;
-     	
+        
         $votestatus = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['voteStatus'];
 
-     	voteStatus($votestatus);
+        voteStatus($votestatus);
      }
      else{
-     	echo "Login Unsuccessful";	
+        echo "Login Unsuccessful";  
      }
 } else {
     echo "Error: " . $myquery . "<br>" . mysqli_error($connection);
