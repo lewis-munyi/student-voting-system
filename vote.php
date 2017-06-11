@@ -32,17 +32,21 @@
         <script type="text/javascript">
         $(document).ready(function() {
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-            $('.modal').modal({dismissible: false});
+            $('.modal').modal({
+                dismissible: false
+            });
             $('#terms').modal('open');
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
-var yyyy = today.getFullYear();
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
 
-if(dd>=16 && mm >= 6 && yyyy >= 2017) {
-    document.getElementById("btnVote").disabled=true;
-    Materialize.toast('I am a toast', 4000,'',function(){window.location.href="http://localhost/student-voting-system/student-dashboard.html"});
-} 
+            if (dd >= 16 && mm >= 6 && yyyy >= 2017) {
+                document.getElementById("btnVote").disabled = true;
+                Materialize.toast('I am a toast', 4000, '', function() {
+                    window.location.href = "http://localhost/student-voting-system/student-dashboard.html"
+                });
+            }
 
             $('select').material_select();
         });
@@ -81,11 +85,13 @@ if(dd>=16 && mm >= 6 && yyyy >= 2017) {
                 document.getElementById('tr8').innerText = itemSelected4;
             }
         }
-        function dismiss(){
+
+        function dismiss() {
             var $exit = $('<span>Exiting..</span>');
-                Materialize.toast($exit, 5000);
-            window.location.href="http://localhost/student-voting-system/student-login.html";
+            Materialize.toast($exit, 5000);
+            window.location.href = "http://localhost/student-voting-system/student-login.html";
         }
+
         function check() {
             var myvalue1 = document.getElementById('item1').value;
             var myvalue2 = document.getElementById('item2').value;
@@ -111,12 +117,12 @@ if(dd>=16 && mm >= 6 && yyyy >= 2017) {
                 <div class="modal-content">
                     <h4>Terms and conditions</h4>
                     <h5>By proceeding you hereby agree to the followig terms and conditions:</h5>
-                     <ol type="1">
-  <li>Only valid UON students are allowed to vote on this portal</li>
-  <li>You can only vote for yoor candidates once</li>
-  <li>Any irregularities should be imediatly reported to the university administration</li>
-  <li>No students should share their login credentials with other people</li>
-</ol> 
+                    <ol type="1">
+                        <li>Only valid UON students are allowed to vote on this portal</li>
+                        <li>You can only vote for yoor candidates once</li>
+                        <li>Any irregularities should be imediatly reported to the university administration</li>
+                        <li>No students should share their login credentials with other people</li>
+                    </ol>
                 </div>
                 <div class="modal-footer">
                     <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -140,8 +146,8 @@ if(dd>=16 && mm >= 6 && yyyy >= 2017) {
             <div class="container">
                 <div class="row"></div>
                 <div class="row">
-                <div class="col s12 m2 2">
-                       <h4>Time left:</h4>
+                    <div class="col s12 m2 2">
+                        <h4>Time left:</h4>
                     </div>
                     <div class="col s12 m10 l10">
                         <div class="clock"></div>

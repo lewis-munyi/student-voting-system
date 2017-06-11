@@ -35,12 +35,19 @@ for($i=0;$i<sizeof($mydata);$i++)
 	
 	$crypto_regno = (hash(sha256, $re_no));
 	$qr = "insert into votes(contestant_id, student_id, post_id) values ($mydata[$i], '$crypto_regno', $i+1)";
+	echo($re_no);
 	if ($success = mysqli_query($connection, $qr)) {
-		echo "success";
-		$confirm = mysqli_query(connection, sql)
-		//$sql = "select ". $re_no . " from registeredStudents";
-		//UPDATE `registeredStudents` SET `voteStatus` = '1' WHERE `registeredStudents`.`id` = 2;
-
+		echo "success voted";
+		
+		$sql = "UPDATE registeredStudents SET voteStatus = 1 WHERE studentRegistration = $re_no";
+		if ($confirm = mysqli_query($connection, $sql)) {
+			echo "locked voting";
+			header("Location: http://localhost/student-voting-system/student-dashboard.php");
+			//header("Location: http://localhost/student-voting-system/student-dashboard.php");
+		}
+		else{
+			echo(mysqli_error($connection));
+		}
 	}
 	else{
 		echo(mysqli_error($connection));
