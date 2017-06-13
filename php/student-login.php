@@ -94,7 +94,7 @@ if ($value = mysqli_query($connection, $myquery)) {
         voteStatus($votestatus);
      }
      else{
-        echo"<script>Materialize.toast('Incorrect Registration Number or Password!', 5000,'',function(){window.location.href = 'http://localhost/student-voting-system/student-login.html';})</script>";
+        echo"<script>Materialize.toast('Incorrect Registration Number or Password!', 5000,'',function(){window.location.href = 'http://localhost/student-voting-system/index.html';})</script>";
      }
 } else {
     echo "Error: " . $myquery . "<br>" . mysqli_error($connection);

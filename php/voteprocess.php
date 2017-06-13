@@ -43,7 +43,6 @@ for($i=0;$i<sizeof($mydata);$i++)
 		if ($confirm = mysqli_query($connection, $sql)) {
 			echo "locked voting";
 			header("Location: http://localhost/student-voting-system/student-dashboard.php");
-			//header("Location: http://localhost/student-voting-system/student-dashboard.php");
 		}
 		else{
 			echo(mysqli_error($connection));
@@ -53,18 +52,4 @@ for($i=0;$i<sizeof($mydata);$i++)
 		echo(mysqli_error($connection));
 	}
 }
-
-
-
-// $array = array(1, "hello", 1, "world", "hello");
-// print_r(array_count_values($array));
-
-// Array
-// (
-//     [1] => 2
-//     [hello] => 2
-//     [world] => 1
-// )
-
-
 ?>
