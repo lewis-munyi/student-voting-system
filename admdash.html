@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Admin dashboard</title>
+    <title>Dashboard</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -17,84 +17,32 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Add Local jquery -->
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <style type="text/css">
-    header,
-    main,
-    footer {
-        padding-left: 300px;
-    }
-    </style>
 </head>
+<?php session_start();?>
 
 <body>
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper blue dark">
-                <a href="#" class="brand-logo">Logo</a>
+                <a href="#" class="brand-logo">University Of Nairobi</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li>
                         <a href="#">
-                            <?php session_start(); echo ($_SESSION["name"]);?> </a>
+                            <?php echo("Administrator : ".$_SESSION['admin_name']."    ".$_SESSION['email']);?>
+                        </a>
                     </li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
                 </ul>
             </div>
         </nav>
     </div>
-    <script type="text/javascript">
-    $(document).ready(function() {
-
-        // Initialize collapse button
-        $(".button-collapse").sideNav({
-            menuWidth: 300, // Default is 300
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: true // Choose whether you can drag to open on touch screens
-        });
-        // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-        $('.collapsible').collapsible();
-    });
-    </script>
-    <ul id="slide-out" class="side-nav fixed" <li>
-        <div class="userView">
-            <div class="background">
-                <img src="images/office.jpg">
-            </div>
-            <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-            <a href="#!name"><span class="white-text name">John Doe</span></a>
-            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div>
-        </li>
-        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-        <li><a href="#!">Second Link</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-        <li><a href="#!">First Sidebar Link</a></li>
-        <li><a href="#!">Second Sidebar Link</a></li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <a class="collapsible-header">Dropdown<i class="material-icons">arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="#!">First</a></li>
-                            <li><a href="#!">Second</a></li>
-                            <li><a href="#!">Third</a></li>
-                            <li><a href="#!">Fourth</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
+    <ul id="tabs-swipe-demo" class="tabs">
+        <li class="tab col s3"><a href="#test-swipe-1">Test 1</a></li>
+        <li class="tab col s3"><a class="active" href="#test-swipe-2">Test 2</a></li>
+        <li class="tab col s3"><a href="#test-swipe-3">Test 3</a></li>
     </ul>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-    <div class="container">
-    </div>
+    <div id="test-swipe-1" class="col s12 blue">Test 1</div>
+    <div id="test-swipe-2" class="col s12 red">Test 2</div>
+    <div id="test-swipe-3" class="col s12 green">Test 3</div>
 </body>
 
 </html>
