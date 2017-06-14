@@ -1,0 +1,87 @@
+Isaac Kiptoo, [02.06.17 15:39]
+<!DOCTYPE html>
+<html>
+
+<body>
+President
+<br/>
+<select id="item1Select" onchange="item1Selected(1)">
+  <option>Rick</option>
+  <option>James</option>
+  <option>Anne</option>
+  <option>Felton</option>
+</select>
+
+<br/>
+Vice President
+<br/>
+<select id="item2Select" onchange="item1Selected(2)">
+  <option>Rick</option>
+  <option>James</option>
+  <option>Anne</option>
+  <option>Felton</option>
+</select>
+
+<br/>
+Campus Rep
+<br/>
+<select id="item3Select" onchange="item1Selected(3)">
+  <option>Rick</option>
+  <option>James</option>
+  <option>Anne</option>
+  <option>Felton</option>
+</select>
+
+<br/>
+Governor
+<br/>
+<select id="item4Select" onchange="item1Selected(4)">
+  <option>Rick</option>
+  <option>James</option>
+  <option>Anne</option>
+  <option>Felton</option>
+</select>
+
+<br/><br/><br/>
+<table>
+  <tr>
+      <td>President: </td>
+        <td id="item1Tr"></td>
+    </tr>
+    <tr>
+      <td>Vice President: </td>
+        <td id="item2Tr"></td>
+    </tr>
+    <tr>
+      <td>Campus Rep: </td>
+        <td id="item3Tr"></td>
+    </tr>
+    <tr>
+      <td>Governor: </td>
+        <td id="item4Tr"></td>
+    </tr>
+</table>
+
+<br/><br/>
+<button type='button'>Submit</button>
+</body>
+</html>
+
+<script>
+
+function item1Selected(selectItem){ 
+  if(selectItem == 1){
+      var itemSelected1 = document.getElementById('item1Selec
+      document.getElementById('item1Tr').innerText = itemSelected1;
+  } if(selectItem == 2){
+      var itemSelected2 = document.getElementById('item2Select').value;
+      document.getElementById('item2Tr').innerText = itemSelected2;
+  } if(selectItem == 3){
+      var itemSelected3 = document.getElementById('item3Select').value;
+      document.getElementById('item3Tr').innerText = itemSelected3;
+  } if(selectItem == 4){
+      var itemSelected4 = document.getElementById('item4Select').value;
+      document.getElementById('item4Tr').innerText = itemSelected4;
+  }
+}
+</script>

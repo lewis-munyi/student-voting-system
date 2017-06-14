@@ -478,4 +478,3 @@ class AfricasTalkingGateway
     return $this->getPaymentHost().'/mobile/b2b/request';
   }
 }
-

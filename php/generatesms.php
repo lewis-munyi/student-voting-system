@@ -5,5 +5,6 @@
     $code = (random_int(  $min , $max ));
     $_SESSION["code"] = $code;
     
-    header("Location: https://africastalking-lewismunyi.c9users.io/sms.php?code=$code");   
+    header("Location: https://africastalking-lewismunyi.c9users.io/sms.php?code=$code");
+       
  ?>

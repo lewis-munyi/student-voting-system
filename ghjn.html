@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Log In</title>
+    <!-- Flipclock CSS -->
+    <link rel="stylesheet" href="css/flipclock.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jquery CDN -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Add Local jquery -->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- Flipclock JS -->
+    <script src="js/flipclock.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal({
+            dismissible: false
+        });
+    });
+
+    function dismiss() {
+        var $exit = $('<span>Exiting..</span>');
+        Materialize.toast($exit, 5000);
+        window.location.href = "http://localhost/student-voting-system/student-login.html";
+    }
+    function mysms(){
+        $('sms').modal('open');
+    }
+    </script>
+    <div id="sms" class="modal">
+        <form action="https://africastalking-lewismunyi.c9users.io/sms.php" method="POST">
+            <div class="modal-content">
+                <h4>SMS Verification</h4>
+                <p>
+                    Enter the four digit code that you have received on your phone below.
+                </p>
+                <input type="text" name="code" id="code">
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Verify</button>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat" onclick="dismiss()">Disagree</a>
+            </div>
+        </form>
+    </div>
+    <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper blue dark">
+                        <a href="#" class="brand-logo">University Of Nairobi</a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li>
+                                <a href="#">
+                                    <?php echo($_SESSION["name"]);?>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="container">
+    <?php 
+
+session_start();
+
+// Get data from form
+$reg_no = $_POST['reg_no'];
+$password = $_POST['password'];
+$salt = 'chemshabongo';
+$cryptopassword = (hash(sha256, $salt.$_POST['password']));
+$cryptoregno = (hash(sha256, $salt.$_POST['reg_no']));
+
+// Database data
+$db_host = "localhost";
+$db_name = "votingSystem";
+$db_user = "root";
+$db_password ="root";   
+
+// Create connection
+$connection = mysqli_connect($db_host, $db_user ,$db_password, $db_name);
+
+// Check connection
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+function voteStatus($votestatus){
+    if ($votestatus == 3) {
+        // Close connection
+        mysqli_close($connection);
+        header("Location: http://localhost/student-dashboard.html");
+    } else if ($votestatus == 1 || $votestatus = "") {
+        $min = 1000;
+        $max = 9999;
+        $code = (random_int(  $min , $max ));
+        echo $code;
+        //echo '<script type="text/javascript">',
+        //'mysms();',
+        //'</script>';
+        $_SESSION["code"] = $code;
+        echo($_SESSION['code']);
+        header("https://africastalking-lewismunyi.c9users.io/sms.php");
+        // Close connection
+        //mysqli_close($connection);
+        //header("Location: http://localhost/student-voting-system/vote.php");
+    }
+    die();
+}
+
+$myquery = "SELECT * FROM registeredStudents WHERE studentRegistration = $reg_no";
+
+if ($value = mysqli_query($connection, $myquery)) {
+     if (mysqli_fetch_assoc($value)['studentPassword'] == $password){
+        $firstname = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['first_name'];
+        $secondname = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['second_name'];
+        $_SESSION["reg_no"] = $reg_no;
+        $_SESSION["name"] = $firstname." ".$secondname;
+        
+        $votestatus = mysqli_fetch_assoc(mysqli_query($connection, $myquery))['voteStatus'];
+
+        voteStatus($votestatus);
+     }
+     else{
+        echo "Login Unsuccessful";  
+     }
+} else {
+    echo "Error: " . $myquery . "<br>" . mysqli_error($connection);
+} 
+?>
+</div>
+</body>
+
+</html>
