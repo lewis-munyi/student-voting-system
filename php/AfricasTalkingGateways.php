@@ -239,18 +239,24 @@ class AfricasTalkingGateway
   }
 
 		
-  public function uploadMediaFile($url_, $phoneNumber_) 
+  public function uploadMediaFile($url_) 
   {
     $params = array(
-		    "username"    => $this->_username, 
-		    "url"         => $url_,
-        "phoneNumber" => $phoneNumber_
+		    "username" => $this->_username, 
+		    "url"      => $url_
 		    );
   	             
     $this->_requestBody = http_build_query($params, '', '&');
     $this->_requestUrl  = $this->getVoiceUrl() . "/mediaUpload";
   	
     $this->executePOST();
+  	
+    if(($responseObject = json_decode($this->_responseBody)) !== null) {
+      if(strtoupper(trim($responseObject->errorMessage)) != "NONE")
+	throw new AfricasTalkingGatewayException($responseObject->errorMessage);
+    }
+    else
+      throw new AfricasTalkingGatewayException($this->_responseBody);
   }
   
   

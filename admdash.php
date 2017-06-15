@@ -23,6 +23,7 @@
 <body>
     <script type="text/javascript">
     $(document).ready(function() {
+         $('select').material_select();
         $('.scrollspy').scrollSpy();
         $("side-nav").sideNav();
         $(".button-collapse").sideNav({
@@ -42,7 +43,7 @@
         $connection = mysqli_connect($db_host, $db_user ,$db_password, $db_name);
     ?>
         <div class="row">
-            <div class="container">
+            <div class="container blue-grey darken-1">
                 <div class="navbar-fixed">
                     <nav>
                         <div class="nav-wrapper blue dark">
@@ -95,8 +96,8 @@
                     <div class="row selection scrollspy" id="student">
                         <ul id="tabs-swipe-demo" class="tabs">
                             <!-- tab headers -->
-                            <li class="tab col s6"><a class="active" href="#viewstudents">View students</a></li>
-                            <li class="tab col s6"><a href="#addstudent">Add student</a></li>
+                            <li class="tab col s6 blue-grey darken-1"><a href="#viewstudents" class="white-text">View students</a></li>
+                            <li class="tab col s6 blue-grey darken-1"><a href="#addstudent" class="white-text">Add student</a></li>
                         </ul>
                         <div id="viewstudents" class="col s12">
                             <div class="card blue-grey darken-1">
@@ -134,10 +135,10 @@
                             </div>
                         </div>
                         <div id="addstudent" class="col s12">
-                            <form class="col s12 blue-grey">
+                            <form class="col s12" action="php/addstudent.php" method="POST">
                                 <div class="row">
                                     <div class="input-field col s12 m6">
-                                        <input placeholder="First Name" id="first_name" type="text" class="validate" name="first_name">
+                                        <input id="first_name" type="text" class="validate" name="first_name">
                                         <label for="first_name">First Name</label>
                                     </div>
                                     <div class="input-field col s21 m6">
@@ -147,27 +148,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input placeholder="Registration Number" id="reg_no" type="number" class="validate" name="reg_no">
+                                        <input  id="reg_no" type="number" class="validate" name="reg_no">
                                         <label for="reg_no">Registration Number</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input placeholder="0713833769" id="phone_no" name="phone_no" type="number" class="validate">
+                                        <input  id="phone_no" name="phone_no" type="number" class="validate">
                                         <label for="phone_no">Phone number</label>
                                     </div>
                                 </div>
-                                                                <div class="row">
+                                <div class="row">
                                     <div class="input-field col s6">
-                                        <input placeholder="email" id="email" type="email" class="validate" name="email">
+                                        <input  id="email" type="email" class="validate" name="email">
                                         <label for="reg_no">Email</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input placeholder="enter password" id="password" name="password" type="password" class="validate">
+                                        <input id="password" name="password" type="password" class="validate">
                                         <label for="phone_no">Password</label>
                                     </div>
                                 </div>
                                 <div class="row center">
-                                    
-                                    <button type="Register" class="waves-effect waves-light btn">button</a>
+                                    <button type="submit" class="waves-effect waves-light btn">Register</a>
                                 </div>
                             </form>
                         </div>
@@ -237,10 +237,11 @@
                         </div>
                     </div>
                     <div id="addnominee" class="col s12">
-                       <!--  <form class="col s12 blue-grey">
+                        <div class="card blue-grey darken-1">
+                            <form class="col s12" action="php/addnominee.php" method="POST">
                                 <div class="row">
                                     <div class="input-field col s12 m6">
-                                        <input placeholder="First Name" id="first_name" type="text" class="validate" name="first_name">
+                                        <input id="first_name" type="text" class="validate" name="first_name">
                                         <label for="first_name">First Name</label>
                                     </div>
                                     <div class="input-field col s21 m6">
@@ -250,29 +251,45 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input placeholder="Registration Number" id="reg_no" type="number" class="validate" name="reg_no">
+                                        <input  id="reg_no" type="number" class="validate" name="reg_no">
                                         <label for="reg_no">Registration Number</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input placeholder="0713833769" id="phone_no" name="phone_no" type="number" class="validate">
+                                        <input  id="phone_no" name="phone_no" type="number" class="validate">
                                         <label for="phone_no">Phone number</label>
                                     </div>
                                 </div>
-                                                                <div class="row">
+                                <div class="row">
                                     <div class="input-field col s6">
-                                        <input placeholder="email" id="email" type="email" class="validate" name="email">
-                                        <label for="reg_no">Email</label>
+                                        <input id="email" type="email" class="validate" name="email">
+                                        <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input placeholder="enter password" id="password" name="password" type="password" class="validate">
-                                        <label for="phone_no">Password</label>
+                                        <select name="post" id="post">
+      <option value="" disabled selected>Select post</option>
+      <?php
+      $sql = "SELECT * from representativePosts";
+      if ($result = mysqli_query($connection, $sql)) {
+          while ($data = mysqli_fetch_array($result)) {
+              echo "<option value='" . $data['id'] . "'>" . $data['post_title'] . "</option>";
+          }
+      } else {
+          echo ("Unable to connect to db");
+      }
+      
+      ?>
+    </select>
+
+                                        
+                                        <label for="post">Leadership post</label>
                                     </div>
                                 </div>
                                 <div class="row center">
-                                    
-                                    <button type="Register" class="waves-effect waves-light btn">button</a>
+                                    <button type="submit" class="waves-effect waves-light btn">submit</a>
                                 </div>
-                            </form> -->
+                            </form>
+                        </div>
+                       
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -283,44 +300,11 @@
                         <li class="tab col s6"><a class="active" href="#viewresults">View results</a></li>
                         <li class="tab col s6"><a href="#controlresults">Add Poll</a></li>
                     </ul>
-                    <div class="card blue-grey darken-1" id="viewresults">
-                        <div class="col s12 m6">
-                            <div class="<form class="col s12 blue-grey">
-                                <div class="row">
-                                    <div class="input-field col s12 m6">
-                                        <input placeholder="First Name" id="first_name" type="text" class="validate" name="first_name">
-                                        <label for="first_name">First Name</label>
-                                    </div>
-                                    <div class="input-field col s21 m6">
-                                        <input id="last_name" type="text" class="validate" name="last_name">
-                                        <label for="last_name">Last Name</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input placeholder="Registration Number" id="reg_no" type="number" class="validate" name="reg_no">
-                                        <label for="reg_no">Registration Number</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input placeholder="0713833769" id="phone_no" name="phone_no" type="number" class="validate">
-                                        <label for="phone_no">Phone number</label>
-                                    </div>
-                                </div>
-                                                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input placeholder="email" id="email" type="email" class="validate" name="email">
-                                        <label for="reg_no">Email</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input placeholder="enter password" id="password" name="password" type="password" class="validate">
-                                        <label for="phone_no">Password</label>
-                                    </div>
-                                </div>
-                                <div class="row center">
-                                    
-                                    <button type="Register" class="waves-effect waves-light btn">button</a>
-                                </div>
-                            </form>card blue-grey darken-1">
+                    <div class="" id="viewresults">
+                        <div class="row card blue-grey darken-1">
+                            <div class="row">
+                                                        <div class="col s12 m6">
+                            <div class="card blue-grey darken-1">
                                 <div class="card-content white-text">
                                     <span class="card-title">Chairperson</span>
                                     <table class="bordered">
@@ -332,7 +316,8 @@
                                         </thead>
                                         <tbody>
                                             <?php 
-                                $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 1";
+                                
+                                    $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 1";
                                                 $result = mysqli_query($connection,$sqlSelect);
                                                 while ($row = mysqli_fetch_array($result))
                                                 { 
@@ -343,11 +328,11 @@
                                                         echo "<tr><td class= 'center'>". $row['first_name'] . " " . $row[second_name] . "</td><td class='center'>". $num ."</td></tr>";
                                                     }
                                                 }
-                                                $sqlSelect="SELECT * FROM votes WHERE post_id = 1";
+                                                $sqlSelect="SELECT * FROM votes WHERE post_id = 2";
                                                 $total = mysqli_query($connection, $sqlSelect);
                                                 $total = mysqli_num_rows($total);
                                                 echo "<tr><td class= 'center'><i><b>Total votes</b></i></td><td class= 'center'><i><b>". $total."<b><i></td></tr>";
-                                 ?>
+                                    ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -390,7 +375,6 @@
                         </div>
                     </div>
                     <div class="row">
-                    </div>
                     <div class="col s12 m6">
                         <div class="card blue-grey darken-1">
                             <div class="card-content white-text">
@@ -426,20 +410,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col s12 m6">
-                            <div class="card blue-grey darken-1">
-                                <div class="card-content white-text">
-                                    <span class="card-title">Treasurer</span>
-                                    <table class="bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Contestant</th>
-                                                <th>Number of votes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
+                    <div class="col s12 m6">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Treasurer</span>
+                                <table class="bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Contestant</th>
+                                            <th>Number of votes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
                                 
                                     $sqlSelect="SELECT * FROM contestants WHERE contestantPost = 5";
                                                 $result = mysqli_query($connection,$sqlSelect);
@@ -457,11 +440,13 @@
                                                 $total = mysqli_num_rows($total);
                                                 echo "<tr><td class= 'center'><i><b>Total votes</b></i></td><td class= 'center'><i><b>". $total."<b><i></td></tr>";
                                     ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                    </div>
+                    </div>
+                    <div class="row">
                         <div class="col s12 m6">
                             <div class="card blue-grey darken-1">
                                 <div class="card-content white-text">
@@ -605,18 +590,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
                     <div id="controlresults" class="col s12">
-                        <div class="card blue-grey darken-1">
-                            <div class="card-content white-text">
-                                <span class="card-title">Control</span>
-                                </table>
-                            </div>
-                        </div>
+                        
                     </div>
+                    </div>
+                    </div>
+                    
                 </div>
                 <!-- section 2 -->
-                <div id="addstudent" class="col s12 red">Test 2</div>
-                <div id="test-swipe-3" class="col s12 green">Test 3</div>
+                <div id="controlresults" class="col s12 center">
+                    <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Control</span>
+                                <a href="#" class="btn waves-effect waves-light">Send results</a>
+                            </div>
+                        </div>
+                </div>
+
             </div>
         </div>
 </body>

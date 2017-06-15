@@ -51,7 +51,7 @@
                 <a href="#" class="brand-logo">University Of Nairobi</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li>
-                        <a class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="Log out" onclick="Materialize.toast('Logging out', 3000,'',function(){window.location.href = 'http://localhost/student-voting-system/php/logout.php';})">
+                        <a class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="Log out" onclick="Materialize.toast('Logging out', 1000,'',function(){window.location.href = 'http://localhost/student-voting-system/php/logout.php';})">
                             <?php echo($_SESSION["name"]);?>
                         </a>
                     </li>

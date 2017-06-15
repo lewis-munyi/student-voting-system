@@ -21,6 +21,11 @@
 </head>
 
 <body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.modal').modal();
+    });
+</script>
     <?php
         session_start();
         $db_host = "localhost";
@@ -338,12 +343,26 @@
                 </div>
             </div>
     
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Enter message</h4>
+      <form action="php/report.php" method="POST">
+<i class="material-icons prefix">mode_edit</i>
+<textarea id="textarea1" placeholder="Enter message" class="materialize-textarea" name="report"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Send</button>
+    </div>
+    </form>
+  </div>
                 <div class="row right">
-                    <a data-position="top" data-delay="0" data-tooltip="Export results" class=" tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                    <a data-position="top" data-delay="0" data-tooltip="Report Irregularity" href="#modal1" class=" tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">chat_bubble_outline</i></a>
                 </div>
         </div>
         </div>
-        <div class="row">Footer</div>
+        
         </div>
 </body>
 
