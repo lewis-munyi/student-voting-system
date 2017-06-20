@@ -43,9 +43,7 @@
 
             if (dd >= 16 && mm >= 6 && yyyy >= 2017) {
                 document.getElementById("btnVote").disabled = true;
-                Materialize.toast('I am a toast', 4000, '', function() {
-                    window.location.href = "http://localhost/student-voting-system/student-dashboard.html"
-                });
+                Materialize.toast('Vote before the countdown stops!', 4000, '');
             }
 
             $('select').material_select();

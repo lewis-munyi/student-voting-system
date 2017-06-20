@@ -54,7 +54,7 @@
             </div>
             <div class="row">
                 <div class="col s12 m4">
-                    <div class="card blue-grey darken-1">
+                    <div class="card blue">
                         <div class="card-content white-text">
                             <span class="card-title">Chairperson</span>
                             <table class="bordered">

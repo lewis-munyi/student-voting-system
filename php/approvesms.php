@@ -36,7 +36,7 @@
   <form action = "verify.php" method="POST">
     <div class="modal-content">
       <h4>SMS Verification</h4>
-      <p>Enter the code here</p>
+      <p>Enter the code here<?php echo($_SESSION['code']); ?></p>
       <input type="password" name="code" id="code" autofocus>
     </div>
     <div class="modal-footer">
@@ -52,7 +52,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li>
                         <a class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="Log out" onclick="Materialize.toast('Logging out', 1000,'',function(){window.location.href = 'http://localhost/student-voting-system/php/logout.php';})">
-                            <?php echo($_SESSION["name"]);?>
+                            <?php session_start(); echo($_SESSION["name"]);?>
                         </a>
                     </li>
                 </ul>
@@ -60,6 +60,7 @@
         </nav>
     </div>
     <div class="container">
+    
         </div>
         
 </body>
